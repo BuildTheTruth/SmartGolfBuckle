@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "139466668790",
+    "firebase_url": "https://smartgolfbuckle.firebaseio.com",
+    "project_id": "smartgolfbuckle",
+    "storage_bucket": "smartgolfbuckle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139466668790:android:1ed6b9e80e699816",
+        "android_client_info": {
+          "package_name": "com.golflog.smartgolfbuckle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139466668790-mt6n3vsl760r6639b1sl11kk2tccubhc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.golflog.smartgolfbuckle",
+            "certificate_hash": "d61e36428e8329c81f79363f74c2603956050859"
+          }
+        },
+        {
+          "client_id": "139466668790-qv5r4g531895o0g8m2rjtqu1te4nvmk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf3pY4LxiuefDVtdi7Bzr60ex7I3gw-oI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139466668790-qv5r4g531895o0g8m2rjtqu1te4nvmk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
