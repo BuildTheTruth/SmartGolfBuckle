@@ -6,11 +6,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground"
+        android:background="@color/colorWhite"
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/logo_imageView"
+            android:id="@+id/iv_logo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/splash_logo" />

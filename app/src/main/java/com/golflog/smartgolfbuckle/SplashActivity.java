@@ -41,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
-        binding.logoImageView.startAnimation(splashAnimation);
+        binding.ivLogo.startAnimation(splashAnimation);
 
     }
 }

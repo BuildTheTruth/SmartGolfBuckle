@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:focusableInTouchMode="true"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tv_clubNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:text="#" />
+
+        <TextView
+            android:id="@+id/tv_clubKind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:text="club" />
+
+        <TextView
+            android:id="@+id/tv_clubTag"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="tag" />
+
+        <EditText
+            android:id="@+id/et_clubMaker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:textSize="12sp"
+            android:padding="4dp"
+            android:background="@drawable/rectangle_border"
+            android:gravity="center" />
+
+        <Spinner
+            android:id="@+id/sp_clubShaft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3" />
+
+
+    </LinearLayout>
+
+</layout>

@@ -41,20 +41,20 @@ public class RegisterActivity extends AppCompatActivity {
 
         ageGroupSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ageGroups);
         ageGroupSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.ageGroupSpinner.setAdapter(ageGroupSpinnerAdapter);
-        binding.ageGroupSpinner.setSelection(3); // default = 40대
+        binding.spAgeGroup.setAdapter(ageGroupSpinnerAdapter);
+        binding.spAgeGroup.setSelection(3); // default = 40대
 
         genderSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, gender);
         genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.genderSpinner.setAdapter(genderSpinnerAdapter);
+        binding.spGender.setAdapter(genderSpinnerAdapter);
 
         avgHitNumberSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, avgHitNumberGroups);
         avgHitNumberSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.avgHitNumberSpinner.setAdapter(avgHitNumberSpinnerAdapter);
+        binding.spAvgHitGroup.setAdapter(avgHitNumberSpinnerAdapter);
 
-        binding.checkPhoneNumberButton.setOnClickListener(new CheckPhoneNumberButtonClickListener());
-        binding.submitButton.setOnClickListener(new SubmitButtonClickListener());
-        binding.cancelButton.setOnClickListener(new CancelButtonClickListener());
+        binding.btnCheckPhoneNum.setOnClickListener(new CheckPhoneNumberButtonClickListener());
+        binding.btnSubmit.setOnClickListener(new SubmitButtonClickListener());
+        binding.btnCancel.setOnClickListener(new CancelButtonClickListener());
 
     }
 
@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Iterator<DataSnapshot> child = dataSnapshot.getChildren().iterator();
                     while(child.hasNext()) {
-                        String inputPhoneNumber = binding.phoneNumberEditText.getText().toString();
+                        String inputPhoneNumber = binding.etPhoneNum.getText().toString();
                         if(inputPhoneNumber.equals(child.next().getKey())) {
                             Toast.makeText(getApplicationContext(), "이미 등록된 휴대폰 번호입니다.", Toast.LENGTH_LONG).show();
                             isValidPhoneNumber=false;

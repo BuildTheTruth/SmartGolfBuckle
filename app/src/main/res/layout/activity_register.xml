@@ -16,6 +16,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/ColorBlack"
                 android:gravity="center"
                 android:paddingTop="24dp"
                 android:paddingBottom="24dp"
@@ -28,7 +29,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/phoneNumber_editText"
+                    android:id="@+id/et_phoneNum"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -38,10 +39,12 @@
                     android:singleLine="true" />
 
                 <Button
-                    android:id="@+id/checkPhoneNumber_button"
+                    android:id="@+id/btn_checkPhoneNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="중복확인" />
+                    android:background="@drawable/button_shape"
+                    android:text="중복확인"
+                    android:textColor="@color/colorWhite" />
 
             </LinearLayout>
 
@@ -50,7 +53,7 @@
                 android:layout_height="16dp" />
 
             <EditText
-                android:id="@+id/password_editText"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호"
@@ -61,14 +64,14 @@
                 android:layout_height="16dp" />
 
             <EditText
-                android:id="@+id/passwordCheck_editText"
+                android:id="@+id/et_rePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 확인"
                 android:inputType="textPassword" />
 
             <TextView
-                android:id="@+id/checkResult_textView"
+                android:id="@+id/tv_checkResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_checkResult"
@@ -76,14 +79,14 @@
                 android:visibility="invisible" />
 
             <EditText
-                android:id="@+id/userName_editText"
+                android:id="@+id/et_userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="이름" />
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="16dp" />
+                android:layout_height="8dp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -102,12 +105,18 @@
                         android:layout_height="match_parent" />
 
                     <Spinner
-                        android:id="@+id/gender_spinner"
+                        android:id="@+id/sp_gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
                 </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/border_line" />
 
                 <TableRow android:layout_margin="16dp">
 
@@ -122,12 +131,18 @@
                         android:layout_height="match_parent" />
 
                     <Spinner
-                        android:id="@+id/ageGroup_spinner"
+                        android:id="@+id/sp_ageGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
                 </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/border_line" />
 
                 <TableRow android:layout_margin="16dp">
 
@@ -142,7 +157,7 @@
                         android:layout_height="match_parent" />
 
                     <Spinner
-                        android:id="@+id/avgHitNumber_spinner"
+                        android:id="@+id/sp_avgHitGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -161,20 +176,24 @@
                 android:padding="24dp">
 
                 <Button
-                    android:id="@+id/submit_button"
+                    android:id="@+id/btn_submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="등록" />
+                    android:background="@drawable/button_shape"
+                    android:text="등록"
+                    android:textColor="@color/colorWhite" />
 
                 <Space
                     android:layout_width="16dp"
                     android:layout_height="wrap_content" />
 
                 <Button
-                    android:id="@+id/cancel_button"
+                    android:id="@+id/btn_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="취소" />
+                    android:background="@drawable/button_shape"
+                    android:text="취소"
+                    android:textColor="@color/colorWhite" />
 
             </LinearLayout>
 
