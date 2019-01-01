@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 
 import com.golflog.smartgolfbuckle.R;
+import com.golflog.smartgolfbuckle.SaveSharedPreference;
 import com.golflog.smartgolfbuckle.TagRecognitionActivity;
 import com.golflog.smartgolfbuckle.databinding.ItemClubBinding;
 import com.golflog.smartgolfbuckle.vo.GolfClub;
@@ -24,12 +28,10 @@ public class GolfClubAdapter extends RecyclerView.Adapter {
     private String[] shafts = {"Graphite", "Steel"};
     private ArrayList<GolfClub> mGolfClubList;
     private Context context;
-    private int changedPosition;
 
-    public GolfClubAdapter(ArrayList<GolfClub> mGolfClubList, Context context, int changedPosition) {
+    public GolfClubAdapter(ArrayList<GolfClub> mGolfClubList, Context context) {
         this.mGolfClubList = mGolfClubList;
         this.context = context;
-        this.changedPosition = changedPosition;
     }
 
     @NonNull
@@ -65,8 +67,7 @@ public class GolfClubAdapter extends RecyclerView.Adapter {
             }
         });
 
-        if(changedPosition == position)
-            binding.tvClubTag.setTextColor(Color.GREEN);
+        setChangedTagPosition(binding, position);
     }
 
     @Override
@@ -88,6 +89,12 @@ public class GolfClubAdapter extends RecyclerView.Adapter {
             if (shaft.equals(shafts[i]))
                 return i;
         return 0;
+    }
+
+    private void setChangedTagPosition(ItemClubBinding binding, int position) {
+        int changedTagPosition = SaveSharedPreference.getChangedTagPosition();
+        if(changedTagPosition == position)
+            binding.tvClubTag.setTextColor(Color.GREEN);
     }
 }
 

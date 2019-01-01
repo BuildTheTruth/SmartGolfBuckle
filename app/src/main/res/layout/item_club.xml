@@ -4,11 +4,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:focusableInTouchMode="true"
         android:weightSum="1">
 
         <TextView
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:gravity="center"
+            android:singleLine="true"
             android:text="tag" />
 
         <EditText
@@ -40,10 +41,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:textSize="12sp"
-            android:padding="4dp"
             android:background="@drawable/rectangle_border"
-            android:gravity="center" />
+            android:gravity="center"
+            android:padding="4dp"
+            android:textSize="12sp" />
 
         <Spinner
             android:id="@+id/sp_clubShaft"

@@ -5,8 +5,9 @@ import com.golflog.smartgolfbuckle.vo.User;
 
 import java.util.ArrayList;
 
-public class SharedPreference {
+public class SaveSharedPreference {
     static private User loggedUser;
+    static private int changedTagPosition;
 
     public static User getLoggedUser() {
         return loggedUser;
@@ -16,6 +17,7 @@ public class SharedPreference {
         ArrayList<GolfClub> mGolfClubList = loggedUser.getGolfClubList();
         mGolfClubList.get(position).setTag(tag);
         loggedUser.setGolfClubList(mGolfClubList);
+        changedTagPosition = position;
     }
 
     public static void setGolfClubList(ArrayList<GolfClub> golfClubList) {
@@ -23,9 +25,14 @@ public class SharedPreference {
     }
 
     public static void setLoggedUser(User user) {
-        if (user == null)
+        changedTagPosition = -1;
+        if(user == null)
             loggedUser = new User("01012345678", "123", "배형진", "남성", "20대");
         else
-            SharedPreference.loggedUser = user;
+            loggedUser = user;
+    }
+
+    public static int getChangedTagPosition() {
+        return changedTagPosition;
     }
 }

@@ -76,16 +76,13 @@ public class TagRecognitionActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
        if(intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-           String clubTag = ConvertToHex(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
-           SharedPreference.setClubTagByPosition(clubTag, tagPosition);
-           Intent retIntent = new Intent(this, ClubSettingActivity.class);
-           retIntent.putExtra("CHANGED_POSITION", tagPosition);
-           startActivity(retIntent);
+           String clubTag = convertToHex(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+           SaveSharedPreference.setClubTagByPosition(clubTag, tagPosition);
            finish();
        }
     }
 
-    private String ConvertToHex(byte[] bytes) {
+    private String convertToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for(byte b : bytes)
             sb.append(String.format("%02x", b&0xff));

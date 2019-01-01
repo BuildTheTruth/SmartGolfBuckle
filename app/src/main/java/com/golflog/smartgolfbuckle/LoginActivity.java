@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnRegister.setOnClickListener(new RegisterButtonClickListener());
         binding.btnFindPassword.setOnClickListener(new FIndPasswordButtonClickListener());
 
-        SharedPreference.setLoggedUser(mUser);
+        SaveSharedPreference.setLoggedUser(mUser);
 
     }
 
