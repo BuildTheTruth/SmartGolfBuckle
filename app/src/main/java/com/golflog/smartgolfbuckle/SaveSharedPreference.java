@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class SaveSharedPreference {
     static private User loggedUser;
-    static private int changedTagPosition;
 
     public static User getLoggedUser() {
         return loggedUser;
@@ -16,8 +15,8 @@ public class SaveSharedPreference {
     public static void setClubTagByPosition(String tag, int position) {
         ArrayList<GolfClub> mGolfClubList = loggedUser.getGolfClubList();
         mGolfClubList.get(position).setTag(tag);
+        mGolfClubList.get(position).setTagChanged(true);
         loggedUser.setGolfClubList(mGolfClubList);
-        changedTagPosition = position;
     }
 
     public static void setGolfClubList(ArrayList<GolfClub> golfClubList) {
@@ -25,14 +24,9 @@ public class SaveSharedPreference {
     }
 
     public static void setLoggedUser(User user) {
-        changedTagPosition = -1;
         if(user == null)
             loggedUser = new User("01012345678", "123", "배형진", "남성", "20대");
         else
             loggedUser = user;
-    }
-
-    public static int getChangedTagPosition() {
-        return changedTagPosition;
     }
 }

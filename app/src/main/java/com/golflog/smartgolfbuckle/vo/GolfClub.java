@@ -8,19 +8,14 @@ public class GolfClub implements Parcelable {
     private String tag;
     private String maker;
     private String shaft;
-
-    public GolfClub(String kind, String tag, String maker, String shaft) {
-        this.kind = kind;
-        this.tag = tag;
-        this.maker = maker;
-        this.shaft = shaft;
-    }
+    private boolean tagChanged;
 
     protected GolfClub(Parcel in) {
         kind = in.readString();
         tag = in.readString();
         maker = in.readString();
         shaft = in.readString();
+        tagChanged = in.readByte() != 0;
     }
 
     public static final Creator<GolfClub> CREATOR = new Creator<GolfClub>() {
@@ -34,6 +29,28 @@ public class GolfClub implements Parcelable {
             return new GolfClub[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(kind);
+        dest.writeString(tag);
+        dest.writeString(maker);
+        dest.writeString(shaft);
+        dest.writeByte((byte) (tagChanged ? 1 : 0));
+    }
+
+    public GolfClub(String kind, String tag, String maker, String shaft) {
+        this.kind = kind;
+        this.tag = tag;
+        this.maker = maker;
+        this.shaft = shaft;
+        this.tagChanged = false;
+    }
 
     public String getKind() {
         return kind;
@@ -67,16 +84,11 @@ public class GolfClub implements Parcelable {
         this.shaft = shaft;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public boolean getTagChanged() {
+        return tagChanged;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(kind);
-        dest.writeString(tag);
-        dest.writeString(maker);
-        dest.writeString(shaft);
+    public void setTagChanged(boolean tagChanged) {
+        this.tagChanged = tagChanged;
     }
 }

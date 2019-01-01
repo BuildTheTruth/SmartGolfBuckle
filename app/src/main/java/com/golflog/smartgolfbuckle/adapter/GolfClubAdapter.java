@@ -53,12 +53,12 @@ public class GolfClubAdapter extends RecyclerView.Adapter {
         binding.spClubShaft.setAdapter(adapter);
 
         binding.tvClubNum.setText(Integer.toString(position + 1));
-        binding.tvClubKind.setText(mGolfClubList.get(position).getKind());
+        binding.btnClubKind.setText(mGolfClubList.get(position).getKind());
         binding.tvClubTag.setText(mGolfClubList.get(position).getTag());
         binding.etClubMaker.setText(mGolfClubList.get(position).getMaker());
         binding.spClubShaft.setSelection(getShaftPosition(mGolfClubList.get(position).getShaft()));
 
-        binding.tvClubTag.setOnClickListener(new View.OnClickListener() {
+        binding.btnClubKind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TagRecognitionActivity.class);
@@ -67,7 +67,7 @@ public class GolfClubAdapter extends RecyclerView.Adapter {
             }
         });
 
-        setChangedTagPosition(binding, position);
+        setChangedTagButtonColor(binding, position);
     }
 
     @Override
@@ -91,10 +91,11 @@ public class GolfClubAdapter extends RecyclerView.Adapter {
         return 0;
     }
 
-    private void setChangedTagPosition(ItemClubBinding binding, int position) {
-        int changedTagPosition = SaveSharedPreference.getChangedTagPosition();
-        if(changedTagPosition == position)
-            binding.tvClubTag.setTextColor(Color.GREEN);
+    private void setChangedTagButtonColor(ItemClubBinding binding, int position) {
+        if(mGolfClubList.get(position).getTagChanged())
+            binding.btnClubKind.setBackgroundResource(R.drawable.changed_club_button);
+        else
+            binding.btnClubKind.setBackgroundResource(R.drawable.unchanged_club_button);
     }
 }
 
