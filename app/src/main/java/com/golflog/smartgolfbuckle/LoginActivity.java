@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private class LoginButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = new  Intent(getApplicationContext(), ClubSettingActivity.class);
+            Intent intent = new  Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
