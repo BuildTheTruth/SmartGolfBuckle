@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.golflog.smartgolfbuckle.MainActivity">
+
+    <item
+        android:id="@+id/item_myPage"
+        android:orderInCategory="100"
+        android:title="내 정보"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_tagRegister"
+        android:orderInCategory="100"
+        android:title="태그 등록"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_helper"
+        android:orderInCategory="100"
+        android:title="도움말"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item_logout"
+        android:orderInCategory="100"
+        android:title="로그아웃"
+        app:showAsAction="never" />
+
+</menu>

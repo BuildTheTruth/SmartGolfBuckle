@@ -1,12 +1,15 @@
 package com.golflog.smartgolfbuckle.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by Jin on 2018-12-27.
  */
 
-public class GolfCourse {
+public class GolfCourse implements Parcelable {
     private String name;
     private String imageURL;
     private String date;
@@ -18,6 +21,24 @@ public class GolfCourse {
         this.date = date;
         this.shotDataList = shotDataList;
     }
+
+    protected GolfCourse(Parcel in) {
+        name = in.readString();
+        imageURL = in.readString();
+        date = in.readString();
+    }
+
+    public static final Creator<GolfCourse> CREATOR = new Creator<GolfCourse>() {
+        @Override
+        public GolfCourse createFromParcel(Parcel in) {
+            return new GolfCourse(in);
+        }
+
+        @Override
+        public GolfCourse[] newArray(int size) {
+            return new GolfCourse[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -49,5 +70,17 @@ public class GolfCourse {
 
     public void setShotDataList(ArrayList<ShotData> shotDataList) {
         this.shotDataList = shotDataList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(imageURL);
+        dest.writeString(date);
     }
 }

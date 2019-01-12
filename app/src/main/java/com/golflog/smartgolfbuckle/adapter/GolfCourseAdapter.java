@@ -1,11 +1,15 @@
 package com.golflog.smartgolfbuckle.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.golflog.smartgolfbuckle.ClubSettingActivity;
+import com.golflog.smartgolfbuckle.GolfCourseActivity;
 import com.golflog.smartgolfbuckle.databinding.ItemCourseBinding;
 import com.golflog.smartgolfbuckle.vo.GolfCourse;
 
@@ -17,7 +21,7 @@ public class GolfCourseAdapter extends RecyclerView.Adapter {
 
     public GolfCourseAdapter(ArrayList<GolfCourse> mGolfCourseList, Context context) {
         this.mGolfCourseList = mGolfCourseList;
-        this.context= context;
+        this.context = context;
     }
 
     @NonNull
@@ -31,13 +35,14 @@ public class GolfCourseAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        CourseHolder itemViewHolder= (CourseHolder) holder;
+        CourseHolder itemViewHolder = (CourseHolder) holder;
         ItemCourseBinding binding = itemViewHolder.binding;
 
         binding.tvCourseName.setText(mGolfCourseList.get(position).getName());
         binding.tvCourseDate.setText(mGolfCourseList.get(position).getDate());
         binding.tvCourseScore.setText(Integer.toString(mGolfCourseList.get(position).getShotDataList().size()));
-        binding.layoutBackground.getBackground().setAlpha(80);
+        binding.layoutCourse.getBackground().setAlpha(80);
+        binding.layoutCourse.setOnClickListener(new CourseLayoutClickListener(position));
     }
 
     @Override
@@ -51,6 +56,22 @@ public class GolfCourseAdapter extends RecyclerView.Adapter {
         CourseHolder(ItemCourseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+    }
+
+    private class CourseLayoutClickListener implements View.OnClickListener {
+        private int position;
+
+        public CourseLayoutClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, GolfCourseActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("SELECTED_COURSE", mGolfCourseList.get(position));
+            context.startActivity(intent);
         }
     }
 }

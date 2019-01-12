@@ -2,7 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorTabItem">#0080ff</color>
     <color name="colorAccent">#3ec629</color>
+    <color name="colorIndicator">#ffd000</color>
     <color name="colorText">#3ec629</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="ColorBlack">#000000</color>
