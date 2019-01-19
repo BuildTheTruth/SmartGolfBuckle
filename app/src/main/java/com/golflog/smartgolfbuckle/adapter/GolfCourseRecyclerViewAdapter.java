@@ -8,18 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.golflog.smartgolfbuckle.ClubSettingActivity;
 import com.golflog.smartgolfbuckle.GolfCourseActivity;
 import com.golflog.smartgolfbuckle.databinding.ItemCourseBinding;
 import com.golflog.smartgolfbuckle.vo.GolfCourse;
 
 import java.util.ArrayList;
 
-public class GolfCourseAdapter extends RecyclerView.Adapter {
+public class GolfCourseRecyclerViewAdapter extends RecyclerView.Adapter {
     private ArrayList<GolfCourse> mGolfCourseList;
     private Context context;
 
-    public GolfCourseAdapter(ArrayList<GolfCourse> mGolfCourseList, Context context) {
+    public GolfCourseRecyclerViewAdapter(ArrayList<GolfCourse> mGolfCourseList, Context context) {
         this.mGolfCourseList = mGolfCourseList;
         this.context = context;
     }
@@ -29,7 +28,7 @@ public class GolfCourseAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder mHolder;
         ItemCourseBinding binding = ItemCourseBinding.inflate(LayoutInflater.from(context), parent, false);
-        mHolder = new GolfCourseAdapter.CourseHolder(binding);
+        mHolder = new GolfCourseRecyclerViewAdapter.CourseHolder(binding);
         return mHolder;
     }
 

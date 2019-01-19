@@ -24,12 +24,12 @@ import com.golflog.smartgolfbuckle.vo.GolfClub;
 
 import java.util.ArrayList;
 
-public class GolfClubAdapter extends RecyclerView.Adapter {
+public class GolfClubRecyclerViewAdapter extends RecyclerView.Adapter {
     private String[] shafts = {"Graphite", "Steel"};
     private ArrayList<GolfClub> mGolfClubList;
     private Context context;
 
-    public GolfClubAdapter(ArrayList<GolfClub> mGolfClubList, Context context) {
+    public GolfClubRecyclerViewAdapter(ArrayList<GolfClub> mGolfClubList, Context context) {
         this.mGolfClubList = mGolfClubList;
         this.context = context;
     }

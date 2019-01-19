@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
-import com.golflog.smartgolfbuckle.adapter.GolfClubAdapter;
+import com.golflog.smartgolfbuckle.adapter.GolfClubRecyclerViewAdapter;
 import com.golflog.smartgolfbuckle.databinding.ActivityClubSettingBinding;
 import com.golflog.smartgolfbuckle.vo.GolfClub;
 
@@ -17,7 +17,7 @@ public class ClubSettingActivity extends AppCompatActivity {
 
     String[] clubKinds = {"D", "3W", "5W", "4I", "5I", "6I", "7I", "8I", "9I", "PW", "AW", "SW", "LW", "PT"};
     ArrayList<GolfClub> mGolfClubList;
-    GolfClubAdapter mGolfClubAdapter;
+    GolfClubRecyclerViewAdapter mGolfClubRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class ClubSettingActivity extends AppCompatActivity {
             initGolfClub();
 
         SaveSharedPreference.setGolfClubList(mGolfClubList);
-        mGolfClubAdapter = new GolfClubAdapter(mGolfClubList, this);
-        binding.rvClubList.setAdapter(mGolfClubAdapter);
+        mGolfClubRecyclerViewAdapter = new GolfClubRecyclerViewAdapter(mGolfClubList, this);
+        binding.rvClubList.setAdapter(mGolfClubRecyclerViewAdapter);
     }
 }

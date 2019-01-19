@@ -26,6 +26,7 @@ public class GolfCourse implements Parcelable {
         name = in.readString();
         imageURL = in.readString();
         date = in.readString();
+        shotDataList = in.createTypedArrayList(ShotData.CREATOR);
     }
 
     public static final Creator<GolfCourse> CREATOR = new Creator<GolfCourse>() {
@@ -82,5 +83,6 @@ public class GolfCourse implements Parcelable {
         dest.writeString(name);
         dest.writeString(imageURL);
         dest.writeString(date);
+        dest.writeTypedList(shotDataList);
     }
 }

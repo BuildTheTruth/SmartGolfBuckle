@@ -1,12 +1,15 @@
 package com.golflog.smartgolfbuckle.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by Jin on 2018-12-27.
  */
 
-public class User {
+public class User implements Parcelable {
     private String phoneNumber;
     private String password;
     private String name;
@@ -21,6 +24,27 @@ public class User {
         this.gender = gender;
         this.ageGroup = ageGroup;
     }
+
+    protected User(Parcel in) {
+        phoneNumber = in.readString();
+        password = in.readString();
+        name = in.readString();
+        gender = in.readString();
+        ageGroup = in.readString();
+        golfClubList = in.createTypedArrayList(GolfClub.CREATOR);
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -68,5 +92,20 @@ public class User {
 
     public void setGolfClubList(ArrayList<GolfClub> golfClubList) {
         this.golfClubList = golfClubList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(phoneNumber);
+        dest.writeString(password);
+        dest.writeString(name);
+        dest.writeString(gender);
+        dest.writeString(ageGroup);
+        dest.writeTypedList(golfClubList);
     }
 }
