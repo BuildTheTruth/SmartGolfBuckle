@@ -15,8 +15,6 @@ public class Score {
         this.fwhit = fwhit;
     }
 
-    public Score()
-    {}
 
     public String getPar() {
         return par;

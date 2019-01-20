@@ -10,8 +10,19 @@ public class ShotData implements Parcelable {
     private String altitude;
     private String distance;
     private String altDifference;
-    private String holeNum;
-    private String parData;
+    private int hole;
+    private int par;
+
+    public ShotData(GolfClub shotGolfClub, String latitude, String longitude, String altitude, String distance, String altDifference, int hole, int par) {
+        this.shotGolfClub = shotGolfClub;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.distance = distance;
+        this.altDifference = altDifference;
+        this.hole = hole;
+        this.par = par;
+    }
 
     protected ShotData(Parcel in) {
         shotGolfClub = in.readParcelable(GolfClub.class.getClassLoader());
@@ -20,8 +31,8 @@ public class ShotData implements Parcelable {
         altitude = in.readString();
         distance = in.readString();
         altDifference = in.readString();
-        holeNum = in.readString();
-        parData = in.readString();
+        hole = in.readInt();
+        par = in.readInt();
     }
 
     public static final Creator<ShotData> CREATOR = new Creator<ShotData>() {
@@ -35,34 +46,6 @@ public class ShotData implements Parcelable {
             return new ShotData[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(shotGolfClub, flags);
-        dest.writeString(latitude);
-        dest.writeString(longitude);
-        dest.writeString(altitude);
-        dest.writeString(distance);
-        dest.writeString(altDifference);
-        dest.writeString(holeNum);
-        dest.writeString(parData);
-    }
-
-    public ShotData(GolfClub shotGolfClub, String latitude, String longitude, String altitude, String distance, String altDifference, String holeNum, String parData) {
-        this.shotGolfClub = shotGolfClub;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.altitude = altitude;
-        this.distance = distance;
-        this.altDifference = altDifference;
-        this.holeNum = holeNum;
-        this.parData = parData;
-    }
 
     public GolfClub getShotGolfClub() {
         return shotGolfClub;
@@ -112,19 +95,36 @@ public class ShotData implements Parcelable {
         this.altDifference = altDifference;
     }
 
-    public String getHoleNum() {
-        return holeNum;
+    public int getHole() {
+        return hole;
     }
 
-    public void setHoleNum(String holeNum) {
-        this.holeNum = holeNum;
+    public void setHole(int hole) {
+        this.hole = hole;
     }
 
-    public String getParData() {
-        return parData;
+    public int getPar() {
+        return par;
     }
 
-    public void setParData(String parData) {
-        this.parData = parData;
+    public void setPar(int par) {
+        this.par = par;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(shotGolfClub, flags);
+        dest.writeString(latitude);
+        dest.writeString(longitude);
+        dest.writeString(altitude);
+        dest.writeString(distance);
+        dest.writeString(altDifference);
+        dest.writeInt(hole);
+        dest.writeInt(par);
     }
 }

@@ -52,7 +52,7 @@ public class GolfCourseActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch(position) {
                 case SCORE_ITEM:
-                    return ScoreFragment.newInstance();
+                    return ScoreFragment.newInstance(mGolfCourse);
                 case DETAIL_RECORD_ITEM:
                     return DetailRecordFragment.newInstance();
                 case RECORD_ANALYSIS_ITEM:
