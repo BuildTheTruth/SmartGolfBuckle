@@ -1,6 +1,9 @@
 package com.golflog.smartgolfbuckle.vo;
 
-public class Score {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Score  implements Parcelable {
     private String par;
     private String point;
     private String putt;
@@ -15,6 +18,26 @@ public class Score {
         this.fwhit = fwhit;
     }
 
+
+    protected Score(Parcel in) {
+        par = in.readString();
+        point = in.readString();
+        putt = in.readString();
+        gir = in.readString();
+        fwhit = in.readString();
+    }
+
+    public static final Creator<Score> CREATOR = new Creator<Score>() {
+        @Override
+        public Score createFromParcel(Parcel in) {
+            return new Score(in);
+        }
+
+        @Override
+        public Score[] newArray(int size) {
+            return new Score[size];
+        }
+    };
 
     public String getPar() {
         return par;
@@ -54,5 +77,19 @@ public class Score {
 
     public void setFwhit(String fwhit) {
         this.fwhit = fwhit;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(par);
+        dest.writeString(point);
+        dest.writeString(putt);
+        dest.writeString(gir);
+        dest.writeString(fwhit);
     }
 }

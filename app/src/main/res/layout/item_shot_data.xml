@@ -38,6 +38,7 @@
             android:layout_marginRight="1dp"
             android:layout_weight="0.2"
             android:gravity="center"
+            android:singleLine="true"
             android:text="lat"
             android:textStyle="bold" />
 
@@ -49,6 +50,7 @@
             android:layout_marginRight="1dp"
             android:layout_weight="0.2"
             android:gravity="center"
+            android:singleLine="true"
             android:text="lon"
             android:textStyle="bold" />
 

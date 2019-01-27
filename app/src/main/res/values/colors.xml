@@ -7,9 +7,10 @@
     <color name="colorIndicator">#ffd000</color>
     <color name="colorGreen">#3ec629</color>
     <color name="colorWhite">#FFFFFFFF</color>
-    <color name="ColorBlack">#000000</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorButton">#4ccdff</color>
     <color name="colorTableHeader">#4ccdff</color>
+    <color name="colorSelectedItem">#b5fdf9</color>
     <color name="colorUnChangedTagButton">#999999</color>
     <color name="colorChangedTagButton">#2bff47</color>
 </resources>

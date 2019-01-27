@@ -1,31 +1,33 @@
 package com.golflog.smartgolfbuckle.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.golflog.smartgolfbuckle.DetailRecordActivity;
+import com.golflog.smartgolfbuckle.R;
 import com.golflog.smartgolfbuckle.databinding.ItemScoreBinding;
 import com.golflog.smartgolfbuckle.vo.Score;
 import com.golflog.smartgolfbuckle.vo.ShotData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Vector;
 
 public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
     private int nHole;
     private Context context;
     private ArrayList<Score> mScoreList;
+    SparseArray<ArrayList<ShotData>> mShotDataSparseArray;
 
     public ScoreRecyclerViewAdapter(ArrayList<ShotData> mShotDataList, Context context) {
         this.context = context;
         mScoreList = new ArrayList<>();
+        mShotDataSparseArray = new SparseArray<>();
         setScoreListByShotDataList(mShotDataList);
     }
 
@@ -51,6 +53,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
             binding.tvPutt.setText(mScore.getPutt());
             binding.tvGir.setText(mScore.getGir());
             binding.tvFwhit.setText(mScore.getFwhit());
+            binding.layoutScore.setOnTouchListener(new ScoreLayoutTouchListener(position, binding));
         }
     }
 
@@ -69,7 +72,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     private void setScoreListByShotDataList(ArrayList<ShotData> mShotDataList) {
-        SparseArray<ArrayList<ShotData>> mShotDataSparseArray = new SparseArray<>();
+        ArrayList<ShotData> mShotDataByHole;
 
         int maxHole = 0;
         for (ShotData sd : mShotDataList)
@@ -84,8 +87,6 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
 
         for (ShotData sd : mShotDataList)
             mShotDataSparseArray.get(sd.getHole() - 1).add(sd);
-
-        ArrayList<ShotData> mShotDataByHole;
 
         int par;
         int point;
@@ -109,5 +110,36 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
             }
         }
 
+    }
+
+    private class ScoreLayoutTouchListener implements View.OnTouchListener {
+        int position;
+        ItemScoreBinding binding;
+
+        public ScoreLayoutTouchListener(int position, ItemScoreBinding binding) {
+            this.position = position;
+            this.binding = binding;
+        }
+
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    binding.layoutScore.setBackgroundResource(R.color.colorSelectedItem);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    binding.layoutScore.setBackgroundResource(R.color.colorWhite);
+                    Intent intent = new Intent(context, DetailRecordActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("SELECTED_SHOT_DATA", mShotDataSparseArray.get(position));
+                    intent.putExtra("SELECTED_HOLE", position + 1);
+                    context.startActivity(intent);
+                    break;
+                default:
+                    binding.layoutScore.setBackgroundResource(R.color.colorWhite);
+            }
+            return true;
+        }
     }
 }

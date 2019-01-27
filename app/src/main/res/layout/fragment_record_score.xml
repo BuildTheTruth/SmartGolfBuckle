@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ScoreFragment">
+    tools:context=".RecordScoreFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -10,21 +10,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorTableHeader"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/table_header_border"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Hole"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -32,10 +32,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_header_border"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Par"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -43,10 +43,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_header_border"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Score"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -54,10 +54,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_header_border"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Putt"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -65,10 +65,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_header_border"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Gir"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -76,10 +76,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/table_header_border"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Fwhit"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 

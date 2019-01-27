@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.golflog.smartgolfbuckle.databinding.ActivityGolfCourseBinding;
 import com.golflog.smartgolfbuckle.vo.GolfCourse;
@@ -27,9 +26,8 @@ public class GolfCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_golf_course);
         mGolfCourse = getIntent().getParcelableExtra("SELECTED_COURSE");
-        
+
         binding.toolbar.setTitle(mGolfCourse.getName());
-        setSupportActionBar(binding.toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         binding.container.setAdapter(mSectionsPagerAdapter);
         binding.container.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabs));
@@ -44,19 +42,19 @@ public class GolfCourseActivity extends AppCompatActivity {
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            switch(position) {
+            switch (position) {
                 case SCORE_ITEM:
-                    return ScoreFragment.newInstance(mGolfCourse);
+                    return RecordScoreFragment.newInstance(mGolfCourse);
                 case DETAIL_RECORD_ITEM:
-                    return DetailRecordFragment.newInstance();
-                case RECORD_ANALYSIS_ITEM:
                     return RecordAnalysisFragment.newInstance(mGolfCourse);
+                case RECORD_ANALYSIS_ITEM:
+                    return RecordGraphFragment.newInstance();
             }
             return null;
         }

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item_myPage:
                 break;
             case R.id.item_tagRegister:
-                Intent intent = new  Intent(getApplicationContext(), ClubSettingActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ClubSettingActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
@@ -81,15 +81,15 @@ public class MainActivity extends AppCompatActivity {
         ShotData shotData3 = new ShotData(golfClub3, "37.011948", "127.390224", "273", "58", "-5", 1, 5);
         ShotData shotData4 = new ShotData(golfClub4, "37.011753", "127.390186", "268", "10", "1", 1, 5);
 
-        ShotData shotData5 = new ShotData(golfClub1, "37.011753", "127.390186", "268", "10", "1", 2, 4);
-        ShotData shotData6 = new ShotData(golfClub2, "37.011753", "127.390186", "268", "10", "1", 2, 4);
+        ShotData shotData5 = new ShotData(golfClub1, "37.011753", "127.390350", "268", "10", "1", 2, 4);
+        ShotData shotData6 = new ShotData(golfClub2, "37.011753", "127.390220", "268", "10", "1", 2, 4);
         ShotData shotData7 = new ShotData(golfClub4, "37.011753", "127.390186", "268", "10", "1", 2, 4);
 
-        ShotData shotData8 = new ShotData(golfClub1, "37.011753", "127.390186", "268", "10", "1", 3, 4);
-        ShotData shotData9 = new ShotData(golfClub2, "37.011753", "127.390186", "268", "10", "1", 3, 4);
-        ShotData shotData10 = new ShotData(golfClub3, "37.011753", "127.390186", "268", "10", "1", 3, 4);
-        ShotData shotData11 = new ShotData(golfClub4, "37.011753", "127.390186", "268", "10", "1", 3, 4);
-        ShotData shotData12 = new ShotData(golfClub4, "37.011753", "127.390186", "268", "10", "1", 3, 4);
+        ShotData shotData8 = new ShotData(golfClub1, "37.011753", "127.390270", "268", "10", "1", 3, 4);
+        ShotData shotData9 = new ShotData(golfClub2, "37.011753", "127.390180", "268", "10", "1", 3, 4);
+        ShotData shotData10 = new ShotData(golfClub3, "37.011753", "127.390140", "268", "10", "1", 3, 4);
+        ShotData shotData11 = new ShotData(golfClub4, "37.011753", "127.390130", "268", "10", "1", 3, 4);
+        ShotData shotData12 = new ShotData(golfClub4, "37.011753", "127.390126", "268", "10", "1", 3, 4);
         ArrayList<ShotData> shotDataList = new ArrayList<>();
         shotDataList.add(shotData1);
         shotDataList.add(shotData2);

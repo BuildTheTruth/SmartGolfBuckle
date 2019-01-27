@@ -24,7 +24,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_weight="1"
                 android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name">
 
@@ -47,13 +46,13 @@
                     android:id="@+id/tabItem2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="상세기록" />
+                    android:text="기록분석" />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabItem3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="기록분석" />
+                    android:text="그래프" />
 
             </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>
