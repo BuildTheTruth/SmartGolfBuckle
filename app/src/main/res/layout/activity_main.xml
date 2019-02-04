@@ -48,7 +48,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ImageView
-                android:id="@+id/iv_adTop"
+                android:id="@+id/iv_topAdInMain"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="8dp"
@@ -101,7 +101,7 @@
                 tools:listitem="@layout/item_course" />
 
             <ImageView
-                android:id="@+id/iv_adBottom"
+                android:id="@+id/iv_bottomAdInMain"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="8dp"
