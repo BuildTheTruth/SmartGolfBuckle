@@ -39,7 +39,7 @@ public class GolfCourseRecyclerViewAdapter extends RecyclerView.Adapter {
 
         binding.tvCourseName.setText(mGolfCourseList.get(position).getName());
         binding.tvCourseDate.setText(mGolfCourseList.get(position).getDate());
-        binding.tvCourseScore.setText(Integer.toString(mGolfCourseList.get(position).getShotDataList().size()));
+        binding.tvCourseScore.setText(String.valueOf(mGolfCourseList.get(position).getShotDataList().size()));
         binding.layoutCourse.getBackground().setAlpha(80);
         binding.layoutCourse.setOnClickListener(new CourseLayoutClickListener(position));
     }

@@ -2,6 +2,7 @@ package com.golflog.smartgolfbuckle;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +16,10 @@ import com.golflog.smartgolfbuckle.databinding.ActivityMainBinding;
 import com.golflog.smartgolfbuckle.vo.GolfClub;
 import com.golflog.smartgolfbuckle.vo.GolfCourse;
 import com.golflog.smartgolfbuckle.vo.ShotData;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -76,20 +79,21 @@ public class MainActivity extends AppCompatActivity {
         GolfClub golfClub3 = new GolfClub("PW", "5af00188", "Nice", "Steel");
         GolfClub golfClub4 = new GolfClub("PT", "faf2dc788", "Good", "Steel");
 
-        ShotData shotData1 = new ShotData(golfClub1, "37.012984", "127.385369", "281", "221", "22", 1, 5);
-        ShotData shotData2 = new ShotData(golfClub2, "37.012395", "127.385879", "259", "172", "14", 1, 5);
-        ShotData shotData3 = new ShotData(golfClub3, "37.011948", "127.390224", "273", "58", "-5", 1, 5);
-        ShotData shotData4 = new ShotData(golfClub4, "37.011753", "127.390186", "268", "10", "1", 1, 5);
+        ShotData shotData1 = new ShotData(golfClub1, "37.024832", "127.648228", "279", 1, 5);
+        ShotData shotData2 = new ShotData(golfClub2, "37.023390", "127.649647", "258", 1, 5);
+        ShotData shotData3 = new ShotData(golfClub3, "37.022140", "127.650592", "271", 1, 5);
+        ShotData shotData4 = new ShotData(golfClub4, "37.021564", "127.650489", "268", 1, 5);
+        ShotData shotData5 = new ShotData(null, "37.021438", "127.650520", "264", 1, 5);
 
-        ShotData shotData5 = new ShotData(golfClub1, "37.011753", "127.390350", "268", "10", "1", 2, 4);
-        ShotData shotData6 = new ShotData(golfClub2, "37.011753", "127.390220", "268", "10", "1", 2, 4);
-        ShotData shotData7 = new ShotData(golfClub4, "37.011753", "127.390186", "268", "10", "1", 2, 4);
 
-        ShotData shotData8 = new ShotData(golfClub1, "37.011753", "127.390270", "268", "10", "1", 3, 4);
-        ShotData shotData9 = new ShotData(golfClub2, "37.011753", "127.390180", "268", "10", "1", 3, 4);
-        ShotData shotData10 = new ShotData(golfClub3, "37.011753", "127.390140", "268", "10", "1", 3, 4);
-        ShotData shotData11 = new ShotData(golfClub4, "37.011753", "127.390130", "268", "10", "1", 3, 4);
-        ShotData shotData12 = new ShotData(golfClub4, "37.011753", "127.390126", "268", "10", "1", 3, 4);
+        ShotData shotData6 = new ShotData(golfClub2, "37.011753", "127.390220", "268", 2, 4);
+        ShotData shotData7 = new ShotData(golfClub4, "37.011753", "127.390186", "268", 2, 4);
+
+        ShotData shotData8 = new ShotData(golfClub1, "37.011753", "127.390270", "268", 3, 4);
+        ShotData shotData9 = new ShotData(golfClub2, "37.011753", "127.390180", "268", 3, 4);
+        ShotData shotData10 = new ShotData(golfClub3, "37.011753", "127.390140", "268", 3, 4);
+        ShotData shotData11 = new ShotData(golfClub4, "37.011753", "127.390130", "268", 3, 4);
+        ShotData shotData12 = new ShotData(golfClub4, "37.011753", "127.390126", "268", 3, 4);
         ArrayList<ShotData> shotDataList = new ArrayList<>();
         shotDataList.add(shotData1);
         shotDataList.add(shotData2);
@@ -104,6 +108,17 @@ public class MainActivity extends AppCompatActivity {
         shotDataList.add(shotData11);
         shotDataList.add(shotData12);
 
+        // Distance 계산
+        shotData1.setDistance(calculateDistance(shotData1.getPosition(), shotData2.getPosition()));
+        shotData2.setDistance(calculateDistance(shotData2.getPosition(), shotData3.getPosition()));
+        shotData3.setDistance(calculateDistance(shotData3.getPosition(), shotData4.getPosition()));
+        shotData4.setDistance(calculateDistance(shotData4.getPosition(), shotData5.getPosition()));
+
+        // Altitude Difference 계산
+        shotData1.setAltDifference(calculateAltDifference(shotData1, shotData2));
+        shotData2.setAltDifference(calculateAltDifference(shotData2, shotData3));
+        shotData3.setAltDifference(calculateAltDifference(shotData3, shotData4));
+        shotData4.setAltDifference(calculateAltDifference(shotData4, shotData5));
 
         GolfCourse golfCourse1 = new GolfCourse("레인보우 힐스", "img", "2019-01-06", shotDataList);
         GolfCourse golfCourse2 = new GolfCourse("안드레아스", "img", "2019-02-24", shotDataList);
@@ -113,5 +128,21 @@ public class MainActivity extends AppCompatActivity {
         tmpGolfCourseList.add(golfCourse2);
         tmpGolfCourseList.add(golfCourse3);
         tmpGolfCourseList.add(golfCourse4);
+    }
+
+    private String calculateDistance(LatLng pos1, LatLng pos2) {
+        Location locationA = new Location("A");
+        locationA.setLatitude(pos1.latitude);
+        locationA.setLongitude(pos1.longitude);
+        Location locationB = new Location("B");
+        locationB.setLatitude(pos2.latitude);
+        locationB.setLongitude(pos2.longitude);
+        return String.format(Locale.KOREAN, "%.2f", locationA.distanceTo(locationB));
+    }
+
+    private String calculateAltDifference(ShotData shot1, ShotData shot2) {
+        int altitude1 = Integer.parseInt(shot1.getAltitude());
+        int altitude2 = Integer.parseInt(shot2.getAltitude());
+        return String.valueOf(altitude2 - altitude1);
     }
 }

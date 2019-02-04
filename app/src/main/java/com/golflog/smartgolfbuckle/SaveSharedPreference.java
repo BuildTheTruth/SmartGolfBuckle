@@ -2,15 +2,12 @@ package com.golflog.smartgolfbuckle;
 
 import com.golflog.smartgolfbuckle.vo.GolfClub;
 import com.golflog.smartgolfbuckle.vo.User;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 public class SaveSharedPreference {
     static private User loggedUser;
-
-    public static User getLoggedUser() {
-        return loggedUser;
-    }
 
     public static void setClubTagByPosition(String tag, int position) {
         ArrayList<GolfClub> mGolfClubList = loggedUser.getGolfClubList();
@@ -23,8 +20,12 @@ public class SaveSharedPreference {
         loggedUser.setGolfClubList(golfClubList);
     }
 
+    public static User getLoggedUser() {
+        return loggedUser;
+    }
+
     public static void setLoggedUser(User user) {
-        if(user == null)
+        if (user == null)
             loggedUser = new User("01012345678", "123", "배형진", "남성", "20대");
         else
             loggedUser = user;

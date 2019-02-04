@@ -52,7 +52,7 @@ public class GolfClubRecyclerViewAdapter extends RecyclerView.Adapter {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.custom_shaft_dropdown_item_line, shafts);
         binding.spClubShaft.setAdapter(adapter);
 
-        binding.tvClubNum.setText(Integer.toString(position + 1));
+        binding.tvClubNum.setText(String.valueOf(position + 1));
         binding.btnClubKind.setText(mGolfClubList.get(position).getKind());
         binding.tvClubTag.setText(mGolfClubList.get(position).getTag());
         binding.etClubMaker.setText(mGolfClubList.get(position).getMaker());

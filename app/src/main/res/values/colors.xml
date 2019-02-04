@@ -5,6 +5,7 @@
     <color name="colorTabItem">#0080ff</color>
     <color name="colorAccent">#000000</color>
     <color name="colorIndicator">#ffd000</color>
+    <color name="colorFlag">#ffd000</color>
     <color name="colorGreen">#3ec629</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorBlack">#000000</color>

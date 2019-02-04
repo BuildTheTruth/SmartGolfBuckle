@@ -99,9 +99,11 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
             mShotDataByHole = mShotDataSparseArray.get(i);
             if (!mShotDataByHole.isEmpty()) {
                 par = mShotDataByHole.get(0).getPar();
-                point = mShotDataByHole.size() - par;
-                for (ShotData sd : mShotDataByHole)
+                point = mShotDataByHole.size() - par - 1; // Flag Data 제외
+                for (ShotData sd : mShotDataByHole) {
+                    if (sd.getShotGolfClub() == null) continue;
                     if (sd.getShotGolfClub().getKind().equals("PT")) putt++;
+                }
                 // to do
                 // gir
                 // fwhit
