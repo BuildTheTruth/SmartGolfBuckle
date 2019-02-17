@@ -1,23 +1,15 @@
 package com.golflog.smartgolfbuckle.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 
 import com.golflog.smartgolfbuckle.R;
-import com.golflog.smartgolfbuckle.SaveSharedPreference;
 import com.golflog.smartgolfbuckle.TagRecognitionActivity;
 import com.golflog.smartgolfbuckle.databinding.ItemClubBinding;
 import com.golflog.smartgolfbuckle.vo.GolfClub;
@@ -54,7 +46,7 @@ public class GolfClubRecyclerViewAdapter extends RecyclerView.Adapter {
 
         binding.tvClubNum.setText(String.valueOf(position + 1));
         binding.btnClubKind.setText(mGolfClubList.get(position).getKind());
-        binding.tvClubTag.setText(mGolfClubList.get(position).getTag());
+        binding.tvClubTag.setText(mGolfClubList.get(position).getTagID());
         binding.etClubMaker.setText(mGolfClubList.get(position).getMaker());
         binding.spClubShaft.setSelection(getShaftPosition(mGolfClubList.get(position).getShaft()));
 
@@ -92,7 +84,7 @@ public class GolfClubRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     private void setChangedTagButtonColor(ItemClubBinding binding, int position) {
-        if(mGolfClubList.get(position).getTagChanged())
+        if(mGolfClubList.get(position).isTagChanged())
             binding.btnClubKind.setBackgroundResource(R.drawable.changed_club_button);
         else
             binding.btnClubKind.setBackgroundResource(R.drawable.unchanged_club_button);

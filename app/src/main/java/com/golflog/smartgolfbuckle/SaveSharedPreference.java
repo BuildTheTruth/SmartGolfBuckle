@@ -2,16 +2,15 @@ package com.golflog.smartgolfbuckle;
 
 import com.golflog.smartgolfbuckle.vo.GolfClub;
 import com.golflog.smartgolfbuckle.vo.User;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
 public class SaveSharedPreference {
     static private User loggedUser;
 
-    public static void setClubTagByPosition(String tag, int position) {
+    public static void setClubTagByPosition(String id, int position) {
         ArrayList<GolfClub> mGolfClubList = loggedUser.getGolfClubList();
-        mGolfClubList.get(position).setTag(tag);
+        mGolfClubList.get(position).setTagID(id);
         mGolfClubList.get(position).setTagChanged(true);
         loggedUser.setGolfClubList(mGolfClubList);
     }
