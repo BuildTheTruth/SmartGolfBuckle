@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:theme="?attr/actionBarTheme"
-            app:titleTextColor="@color/colorWhite" />
+            app:titleTextColor="@color/white" />
 
         <fragment
             android:id="@+id/fragment_map"

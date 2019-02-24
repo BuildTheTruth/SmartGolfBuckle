@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.golflog.smartgolfbuckle.GolfCourseActivity;
 import com.golflog.smartgolfbuckle.databinding.ItemCourseBinding;
 import com.golflog.smartgolfbuckle.vo.GolfCourse;
+import com.golflog.smartgolfbuckle.vo.ShotData;
 
 import java.util.ArrayList;
 
@@ -36,10 +37,12 @@ public class GolfCourseRecyclerViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CourseHolder itemViewHolder = (CourseHolder) holder;
         ItemCourseBinding binding = itemViewHolder.binding;
+        ArrayList<ShotData> mShotDataList = mGolfCourseList.get(position).getShotDataList();
+        int nHole = mShotDataList.get(mShotDataList.size() - 1).getHole();
 
         binding.tvCourseName.setText(mGolfCourseList.get(position).getName());
         binding.tvCourseDate.setText(mGolfCourseList.get(position).getDate());
-        binding.tvCourseScore.setText(String.valueOf(mGolfCourseList.get(position).getShotDataList().size()));
+        binding.tvCourseScore.setText(String.valueOf(mShotDataList.size() - nHole));
         binding.layoutCourse.getBackground().setAlpha(80);
         binding.layoutCourse.setOnClickListener(new CourseLayoutClickListener(position));
     }

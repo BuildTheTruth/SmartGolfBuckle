@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.golflog.smartgolfbuckle.databinding.ItemShotDataBinding;
@@ -16,12 +15,10 @@ import java.util.ArrayList;
 public class ShotDataRecyclerViewAdapter extends RecyclerView.Adapter {
     private Context context;
     private ArrayList<ShotData> mShotDataList;
-    private int nFlag;
 
     public ShotDataRecyclerViewAdapter(ArrayList<ShotData> mShotDataList, Context context) {
         this.mShotDataList = mShotDataList;
         this.context = context;
-        nFlag = 0;
     }
 
     @NonNull
@@ -39,19 +36,15 @@ public class ShotDataRecyclerViewAdapter extends RecyclerView.Adapter {
         ItemShotDataBinding binding = itemViewHolder.binding;
         ShotData mShotData = mShotDataList.get(position);
 
-        if (mShotData.getShotGolfClub() == null) {
-            binding.layoutShotData.setVisibility(View.GONE);
-            nFlag++;
-            return;
-        }
 
-        binding.tvShotNum.setText(String.valueOf(position + 1 - nFlag));
+        binding.tvShotNum.setText(String.valueOf(position + 1));
         binding.tvShotGolfClub.setText(mShotData.getShotGolfClub().getKind());
         binding.tvLatitude.setText(mShotData.getLatitude());
         binding.tvLongitude.setText(mShotData.getLongitude());
         binding.tvAltitude.setText(mShotData.getAltitude());
         binding.tvDistance.setText(mShotData.getDistance());
         binding.tvAltDifference.setText(mShotData.getAltDifference());
+
     }
 
     @Override

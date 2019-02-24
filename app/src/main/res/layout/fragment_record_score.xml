@@ -7,14 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/layout_scoreTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:background="@color/colorTableHeader"
                 android:orientation="horizontal">
 
@@ -24,7 +26,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Hole"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -35,7 +37,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Par"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -46,7 +48,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Score"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -57,7 +59,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Putt"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -68,7 +70,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Gir"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -79,7 +81,7 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Fwhit"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -89,12 +91,83 @@
                 android:id="@+id/rv_scoreList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@id/layout_scoreBottom"
+                android:layout_below="@id/layout_scoreTop"
                 tools:listitem="@layout/item_score">
 
             </android.support.v7.widget.RecyclerView>
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_scoreBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Total"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_totalPar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Par"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_totalScore"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Score"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_totalPutt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Putt"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="-"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="-"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
     </FrameLayout>
 
 </layout>

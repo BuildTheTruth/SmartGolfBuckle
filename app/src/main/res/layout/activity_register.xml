@@ -16,7 +16,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:paddingTop="24dp"
                 android:paddingBottom="24dp"
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_shape"
                     android:text="중복확인"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -181,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_shape"
                     android:text="등록"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/white" />
 
                 <Space
                     android:layout_width="16dp"
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_shape"
                     android:text="취소"
-                    android:textColor="@color/colorWhite" />
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

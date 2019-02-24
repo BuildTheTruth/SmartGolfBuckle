@@ -13,6 +13,7 @@ public class ShotData implements Parcelable {
     private String distance;
     private String altDifference;
     private LatLng position;
+    private String adImage;
     private int hole;
     private int par;
 
@@ -36,6 +37,7 @@ public class ShotData implements Parcelable {
         distance = in.readString();
         altDifference = in.readString();
         position = in.readParcelable(LatLng.class.getClassLoader());
+        adImage = in.readString();
         hole = in.readInt();
         par = in.readInt();
     }
@@ -49,6 +51,7 @@ public class ShotData implements Parcelable {
         dest.writeString(distance);
         dest.writeString(altDifference);
         dest.writeParcelable(position, flags);
+        dest.writeString(adImage);
         dest.writeInt(hole);
         dest.writeInt(par);
     }
@@ -124,6 +127,14 @@ public class ShotData implements Parcelable {
 
     public void setPosition(LatLng position) {
         this.position = position;
+    }
+
+    public String getAdImage() {
+        return adImage;
+    }
+
+    public void setAdImage(String adImage) {
+        this.adImage = adImage;
     }
 
     public int getHole() {

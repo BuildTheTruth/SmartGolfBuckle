@@ -131,7 +131,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
                     binding.layoutScore.setBackgroundResource(R.color.colorSelectedItem);
                     break;
                 case MotionEvent.ACTION_UP:
-                    binding.layoutScore.setBackgroundResource(R.color.colorWhite);
+                    binding.layoutScore.setBackgroundResource(R.color.white);
                     Intent intent = new Intent(context, DetailRecordActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("SELECTED_SHOT_DATA", mShotDataSparseArray.get(position));
@@ -139,9 +139,13 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter {
                     context.startActivity(intent);
                     break;
                 default:
-                    binding.layoutScore.setBackgroundResource(R.color.colorWhite);
+                    binding.layoutScore.setBackgroundResource(R.color.white);
             }
             return true;
         }
+    }
+
+    public ArrayList<Score> getScoreList() {
+        return mScoreList;
     }
 }

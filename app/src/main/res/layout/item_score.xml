@@ -10,7 +10,7 @@
             android:id="@+id/layout_score"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorWhite"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -20,6 +20,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="#"
+                android:textColor="@color/green"
                 android:textSize="18sp" />
 
             <TextView

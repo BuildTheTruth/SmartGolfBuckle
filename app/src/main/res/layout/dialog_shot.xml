@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    android:background="@drawable/shot_info_dialog_bg"
+    android:gravity="center">
+
+
+        <TextView
+            android:id="@+id/tv_clubKind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/club_kind_info" />
+
+        <TextView
+            android:id="@+id/tv_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/distance_info" />
+
+        <TextView
+            android:id="@+id/tv_altDifference"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/altitude_difference_info" />
+
+
+</LinearLayout>

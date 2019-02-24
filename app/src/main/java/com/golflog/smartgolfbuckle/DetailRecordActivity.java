@@ -1,20 +1,31 @@
 package com.golflog.smartgolfbuckle;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.golflog.smartgolfbuckle.api.RouteEvaluator;
 import com.golflog.smartgolfbuckle.databinding.ActivityDetailRecordBinding;
 import com.golflog.smartgolfbuckle.vo.ShotData;
 import com.google.android.gms.maps.CameraUpdate;
@@ -26,29 +37,73 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 public class DetailRecordActivity extends AppCompatActivity implements OnMapReadyCallback {
+    private final int IMAGE_SELECT = 1001;
     ActivityDetailRecordBinding binding;
 
     ArrayList<ShotData> mShotDataList;
     HashMap<String, ShotData> shotDataHashMap;
+    MapAnimator mapAnimator;
+    List<LatLng> routes = new ArrayList<>();
+    int markerIndex = 0;
+    boolean isEndedAnimation = false;
     GoogleMap mGoogleMap;
 
     View shotView;
     View flagView;
     TextView tvCount;
 
+    Dialog shotDialog;
+    Dialog adDialog;
+    TextView tvClubKind;
+    TextView tvDistance;
+    TextView tvAltDifference;
+    ImageView ivAdFromShot;
+
+    ShotData markedShotData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_record);
-        shotDataHashMap = new HashMap<>();
 
+        shotDialog = new Dialog(DetailRecordActivity.this);
+        shotDialog.setContentView(R.layout.dialog_shot);
+        shotDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        shotDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                adDialog.show();
+            }
+        });
+        tvClubKind = (TextView) shotDialog.findViewById(R.id.tv_clubKind);
+        tvDistance = (TextView) shotDialog.findViewById(R.id.tv_distance);
+        tvAltDifference = (TextView) shotDialog.findViewById(R.id.tv_altDifference);
+
+        adDialog = new Dialog(DetailRecordActivity.this);
+        adDialog.setContentView(R.layout.dialog_ad);
+        adDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (!isEndedAnimation) {
+                    startLineAnimation(++markerIndex);
+                }
+            }
+        });
+
+        ivAdFromShot = (ImageView) adDialog.findViewById(R.id.iv_adFromShot);
+        ivAdFromShot.setOnClickListener(new AdImageClickListener());
+
+        shotDataHashMap = new HashMap<>();
         int hole = getIntent().getIntExtra("SELECTED_HOLE", 0);
         mShotDataList = getIntent().getParcelableArrayListExtra("SELECTED_SHOT_DATA");
 
@@ -69,24 +124,36 @@ public class DetailRecordActivity extends AppCompatActivity implements OnMapRead
 
         for (int idx = 0; idx < mShotDataList.size() - 1; idx++) {
             ShotData shot = mShotDataList.get(idx);
-            markerId = addShotMarker(shot, idx).getId();
+            Marker marker = addShotMarker(shot, idx);
+            markerId = marker.getId();
             shotDataHashMap.put(markerId, shot);
+        }
+
+        for (int idx = 0; idx < mShotDataList.size(); idx++) {
+            ShotData shot = mShotDataList.get(idx);
+            routes.add(shot.getPosition());
         }
 
         ShotData flag = mShotDataList.get(mShotDataList.size() - 1);
         markerId = addFlagMarker(flag).getId();
         shotDataHashMap.put(markerId, flag);
         mLatLng = flag.getPosition();
-
-        for (int idx = 0; idx < mShotDataList.size() - 1; idx++) {
-            ShotData shot1 = mShotDataList.get(idx);
-            ShotData shot2 = mShotDataList.get(idx + 1);
-            addPolyline(shot1, shot2);
-        }
-
         mCameraUpdate = CameraUpdateFactory.newLatLngZoom(mLatLng, 16);
         mGoogleMap.animateCamera(mCameraUpdate);
         mGoogleMap.setOnMarkerClickListener(new MarkerClickListener());
+        startLineAnimation(markerIndex);
+    }
+
+    private void startLineAnimation(int index) {
+        if (index == routes.size() - 1) {
+            isEndedAnimation = true;
+            return;
+        }
+        mapAnimator = new MapAnimator();
+        List<LatLng> bangaloreRoute = new ArrayList<>();
+        bangaloreRoute.add(routes.get(index));
+        bangaloreRoute.add(routes.get(index + 1));
+        mapAnimator.animateRoute(mGoogleMap, bangaloreRoute, mShotDataList.get(index));
     }
 
     private void setShotMarkerView() {
@@ -142,26 +209,124 @@ public class DetailRecordActivity extends AppCompatActivity implements OnMapRead
         @Override
         public boolean onMarkerClick(Marker marker) {
             String markerId = marker.getId();
-            ShotData mShotData = shotDataHashMap.get(markerId);
-            if (mShotData.getShotGolfClub() == null)
+            markedShotData = shotDataHashMap.get(markerId);
+            if (markedShotData.getShotGolfClub() == null)
                 return false;
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(DetailRecordActivity.this);
-            View mView = getLayoutInflater().inflate(R.layout.shot_information, null);
-            dialog.setView(mView);
-
-            TextView tvShotCount = (TextView) mView.findViewById(R.id.tv_shotCount);
-            TextView tvClubKind = (TextView) mView.findViewById(R.id.tv_clubKind);
-            TextView tvDistance = (TextView) mView.findViewById(R.id.tv_distance);
-            TextView tvAltDifference = (TextView) mView.findViewById(R.id.tv_altDifference);
-
-            tvShotCount.setText(String.format(Locale.KOREA, "%d번째 샷정보", Integer.parseInt(marker.getSnippet())));
-            tvClubKind.setText(String.format(Locale.KOREA, "클럽 종류 : %s", mShotData.getShotGolfClub().getKind()));
-            tvDistance.setText(String.format(Locale.KOREA, "샷거리 : %s m", mShotData.getDistance()));
-            tvAltDifference.setText(String.format(Locale.KOREA, "고도차 : %s m", mShotData.getAltDifference()));
-
-            dialog.show();
+            showShotDialog(markedShotData);
             return false;
+        }
+    }
+
+    private class AdImageClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(Intent.createChooser(intent, "광고 이미지을 선택하세요."), IMAGE_SELECT);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        try {
+            if (requestCode == IMAGE_SELECT) {
+                Uri uri = data.getData();
+                String adImage = uri.toString();
+                markedShotData.setAdImage(adImage);
+                Picasso.get().load(markedShotData.getAdImage()).into(ivAdFromShot);
+            }
+        } catch (NullPointerException ex) {
+            adDialog.dismiss();
+        }
+    }
+
+    private void showShotDialog(ShotData shot) {
+        tvClubKind.setText(shot.getShotGolfClub().getKind());
+        tvDistance.setText(String.format(Locale.KOREA, "%s m", shot.getDistance()));
+        tvAltDifference.setText(String.format(Locale.KOREA, "%s m", shot.getAltDifference()));
+        if (shot.getAdImage() != null)
+            Picasso.get().load(shot.getAdImage()).into(ivAdFromShot);
+        else
+            ivAdFromShot.setImageResource(R.drawable.ad_hyundai);
+
+        shotDialog.show();
+    }
+
+    private class MapAnimator {
+        private Polyline foregroundPolyline;
+        private PolylineOptions optionsForeground;
+        private AnimatorSet firstRunAnimSet;
+        private int startDelay;
+
+        private void animateRoute(GoogleMap googleMap, List<LatLng> bangaloreRoute, final ShotData shot) {
+            if (firstRunAnimSet == null) {
+                firstRunAnimSet = new AnimatorSet();
+            } else {
+                firstRunAnimSet.removeAllListeners();
+                firstRunAnimSet.end();
+                firstRunAnimSet.cancel();
+
+                firstRunAnimSet = new AnimatorSet();
+            }
+
+            //Reset the polylines
+            if (foregroundPolyline != null) foregroundPolyline.remove();
+
+            if (markerIndex == 0)
+                startDelay = 2000;
+            else
+                startDelay = 0;
+
+            optionsForeground = new PolylineOptions().add(bangaloreRoute.get(0)).color(Color.RED).width(5);
+            foregroundPolyline = googleMap.addPolyline(optionsForeground);
+
+            ObjectAnimator foregroundRouteAnimator = ObjectAnimator.ofObject(this, "routeIncreaseForward", new RouteEvaluator(), bangaloreRoute.toArray());
+            foregroundRouteAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            foregroundRouteAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    showShotDialog(shot);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            firstRunAnimSet.play(foregroundRouteAnimator);
+            firstRunAnimSet.setStartDelay(startDelay);
+            firstRunAnimSet.setDuration(1600);
+            firstRunAnimSet.start();
+        }
+
+        // This is an handy method to call if you want to remove the polyline because of some condition like back press
+        void stopAndRemovePolyLine() {
+            if (mapAnimator != null) {
+                foregroundPolyline.remove();
+                firstRunAnimSet.cancel();
+            }
+        }
+
+        /**
+         * This will be invoked by the ObjectAnimator multiple times. Mostly every 16ms.
+         **/
+        public void setRouteIncreaseForward(LatLng endLatLng) {
+            List<LatLng> foregroundPoints = foregroundPolyline.getPoints();
+            foregroundPoints.add(endLatLng);
+            foregroundPolyline.setPoints(foregroundPoints);
         }
     }
 }

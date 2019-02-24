@@ -15,6 +15,13 @@ public class GolfCourse implements Parcelable {
     private String date;
     private ArrayList<ShotData> shotDataList;
 
+    public GolfCourse(GolfCourse copy) {
+        this.name = copy.name;
+        this.imageURL =  copy.imageURL;
+        this.date =  copy.date;
+        this.shotDataList =  copy.shotDataList;
+    }
+
     public GolfCourse(String name, String imageURL, String date, ArrayList<ShotData> shotDataList) {
         this.name = name;
         this.imageURL = imageURL;
